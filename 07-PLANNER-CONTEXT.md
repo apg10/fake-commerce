@@ -70,6 +70,7 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
   - SQLAlchemy installed and configured
   - SQLite configured (backend/app/db/session.py)
   - engine, SessionLocal, get_db available
+  - Smoke tests pass (backend/tests/test_db_session.py)
   - No tables or models yet
   - Not wired into main.py or routes
   - No persistence

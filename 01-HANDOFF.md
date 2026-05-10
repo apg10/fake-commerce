@@ -101,6 +101,16 @@ Current project status:
 🤖 Next recommended step:
 - BE-004-A3: Database smoke tests only
 
+✅ Completed task: BE-004-A3 (database smoke tests)
+✅ Validation: 'python -m pytest backend/tests -q' → 62 passed.
+✅ Commit: Add database session smoke tests
+✅ Files changed:
+  - backend/tests/test_db_session.py
+  - 01-HANDOFF.md
+  - 02-LOG.md
+  - 07-PLANNER-CONTEXT.md
+  - 09-LOCAL-MODEL-TASK-QUEUE.md
+
 ⚠️ Warnings for next worker:
 - GET /products combines is_active filter + pagination in one call.
 - In-memory store is cleared via clear_store() fixture in tests.

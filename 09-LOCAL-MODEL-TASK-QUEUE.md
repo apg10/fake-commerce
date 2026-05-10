@@ -18,7 +18,7 @@
 - BE-003-A3: category update/delete routes COMPLETE ✅
   - BE-003-A3a: category partial update route COMPLETE ✅
   - BE-003-A3b: category delete route COMPLETE ✅
-- BE-004-A2: database configuration module COMPLETE ✅
+- BE-004-A3: database smoke tests COMPLETE ✅
 - BE-100: cart model, crud, tests todo ❗
 - BE-110: order model, crud, tests todo ❗
 - BE-120: payment model, crud, tests todo ❗

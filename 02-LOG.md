@@ -32,3 +32,5 @@ BE-003-A3b: Category delete route added via DELETE /categories/{category_id}. Re
 BE-004-A1: Database dependency baseline. Added sqlalchemy to requirements.txt. python -m pytest backend/tests -q → 59 passed. Commit: Add database dependency baseline.
 
 BE-004-A2: Database session module. Created backend/app/db/__init__.py and backend/app/db/session.py with Engine, SessionLocal, and get_db(). python -m pytest backend/tests -q → 59 passed. Commit: Add database session module.
+
+BE-004-A3: Database smoke tests. Created backend/tests/test_db_session.py with 3 tests (engine exposed, SessionLocal exposed, get_db yields usable session, SQL executes). python -m pytest backend/tests -q → 62 passed. Commit: Add database session smoke tests.
