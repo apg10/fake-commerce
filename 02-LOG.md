@@ -28,3 +28,5 @@ BE-003-A1: Category Pydantic schemas created. CategoryBase, CategoryCreate, Cate
 BE-003-A3a: Category partial update route added via PATCH /categories/{category_id}. Returns 200 with CategoryRead on success, 404 for unknown category, 422 for empty name. Uses model_dump(exclude_unset=True) for partial updates. 6 tests added. python -m pytest backend/tests -q → 55 passed. Commit: Add category partial update route.
 
 BE-003-A3b: Category delete route added via DELETE /categories/{category_id}. Returns 204 on success, 404 for unknown category. Hard delete only — no is_active, no soft delete. 4 tests added. python -m pytest backend/tests -q → 59 passed.
+
+BE-004-A1: Database dependency baseline. Added sqlalchemy to requirements.txt. python -m pytest backend/tests -q → 59 passed. Commit: Add database dependency baseline.

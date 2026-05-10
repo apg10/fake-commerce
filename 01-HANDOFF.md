@@ -77,8 +77,14 @@ Current project status:
 - All existing product endpoints functional.
 - 59 tests total.
 
+✅ Completed task: BE-004-A1 (database dependency baseline)
+✅ Validation: 'python -m pip install -r requirements.txt' → sqlalchemy installed successfully. 'python -m pytest backend/tests -q' → 59 passed.
+✅ Commit: Add database dependency baseline
+✅ Files changed:
+  - requirements.txt
+
 🤖 Next recommended step:
-- BE-003-A3b: Category DELETE route (optional) or next unimplemented task
+- BE-004-A2: Database configuration module (SQLAlchemy/SQLite)
 
 ⚠️ Warnings for next worker:
 - GET /products combines is_active filter + pagination in one call.

@@ -1,43 +1,81 @@
 # 07-PLANNER-CONTEXT.md
+
 ## Human/Local Model Collaboration
-Human role: Project planner and review authority
-Local model: Backend and frontend worker that creates safe example files and runs safe commands
-Cloud model: Reviewer that evaluates worker output before allowing the local model to commit
+
+Human role: Project planner and review authority.
+
+Local model role: Focused coding worker that implements scoped microtasks, runs validation, updates allowed context files, and commits only after tests pass.
+
+Cloud model role: Reviewer, architect, prompt designer, and quality-control layer that audits worker output before the next task or push.
 
 ## Safe Coding Patterns
-- Use local backend and frontend tests to validate files worked on
-- Create worker safe output example files that match the allowed task scope
-- Stop after the current task scope is complete and report honestly
-- Never write any backend code until BE-00x is completed and validated
-- Never write any frontend code until FE-00x is completed and validated
-- Use the safe local model task queue and never touch files outside it
+
+- Work through small backend/frontend microtasks.
+- Each task must define allowed files, forbidden files, validation command, and commit rule.
+- Run tests before claiming success.
+- Commit only after validation passes.
+- Never use `git add .`.
+- Never modify files outside the allowed task scope.
+- Do not mark future tasks as complete.
+- Do not write speculative status in context files.
+- Stop immediately if tests fail or the working tree is dirty unexpectedly.
+- Backend work must stay under BE-* tasks.
+- Frontend work must stay under FE-* tasks.
+- Do not start database, cart, order, payment, or frontend work until the corresponding task is explicitly assigned.
 
 ## Current Backend Capabilities
-- Health endpoint: GET /health → 200 {status: ok}
-- Products CRUD: POST /products (201), GET /products (is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
-- Category schemas: CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead (name min_length=1, optional fields, from_attributes=True)
-- Category routes: POST /categories (201), GET /categories (200), GET /categories/{category_id} (200/404), PATCH /categories/{category_id} (200/404/422), DELETE /categories/{category_id} (204/404)
-- Category API now supports create, list, retrieve, partial update, and delete.
-- PATCH uses CategoryUpdate model_dump(exclude_unset=True) for partial updates
-- In-memory storage only, no database
-- Pydantic v2 schemas: ProductCreate, ProductUpdate, ProductRead with validation (price > 0, stock >= 0, name min_length=1)
-- GET /products supports optional is_active (bool), limit (1-100), offset (>=0) query parameters
 
-## Current Risks
-- In-memory storage: data lost on restart
-- No response metadata (total count) for pagination
-- No soft delete (hard delete only)
-- No cart, order, or payment support yet
-- No DELETE endpoint for categories yet
+- Health endpoint:
+  - `GET /health` → `200 {"status": "ok"}`
 
-## Next Recommended Microtask
-- BE-003-A2: Category basic in-memory routes (POST /categories, GET /categories, GET /categories/{category_id})
+- Product schemas:
+  - `ProductBase`
+  - `ProductCreate`
+  - `ProductUpdate`
+  - `ProductRead`
 
-## Tasks That Should NOT Be Started Yet
-- BE-002-A8 or beyond (not defined)
-- BE-003-A3 (patch/delete) - must wait for BE-003-A2 to complete first
-- Tasks that depend on categories not being implemented (cart, orders with categories, etc.)
-- BE-100 cart, BE-110 orders, BE-120 payments
+- Product API:
+  - `POST /products` → create product, `201`
+  - `GET /products` → list products
+  - `GET /products/{product_id}` → retrieve product, `200/404`
+  - `PATCH /products/{product_id}` → partial update, `200/404/422`
+  - `DELETE /products/{product_id}` → hard delete, `204/404`
 
-## Blockers
-- None
+- Product list features:
+  - `is_active` filtering
+  - `limit` pagination parameter, validated from 1 to 100
+  - `offset` pagination parameter, validated as `>= 0`
+
+- Category schemas:
+  - `CategoryBase`
+  - `CategoryCreate`
+  - `CategoryUpdate`
+  - `CategoryRead`
+
+- Category API:
+  - `POST /categories` → create category, `201`
+  - `GET /categories` → list categories
+  - `GET /categories/{category_id}` → retrieve category, `200/404`
+  - `PATCH /categories/{category_id}` → partial update, `200/404/422`
+  - `DELETE /categories/{category_id}` → hard delete, `204/404`
+
+- Category update behavior:
+  - Uses `CategoryUpdate`
+  - Uses `model_dump(exclude_unset=True)`
+  - Preserves omitted fields
+  - Rejects empty name through Pydantic validation
+
+- Storage:
+  - In-memory only
+  - SQLAlchemy installed (not yet used)
+  - SQLite configured (not yet used)
+  - No persistence
+  - No service layer
+  - No repository layer
+
+## Current Validation Status
+
+Latest known validation should be confirmed before push with:
+
+```bash
+python -m pytest backend/tests -q
