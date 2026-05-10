@@ -95,3 +95,47 @@ class TestGetProductById:
     def test_get_404_for_unknown_product(self):
         response = client.get("/products/9999")
         assert response.status_code == 404
+
+
+class TestInvalidProductCreation:
+    """Invalid product payloads return 422 and do not pollute the store."""
+
+    def test_create_product_with_price_zero_returns_422(self):
+        count_before = len(client.get("/products").json())
+        response = client.post(
+            "/products",
+            json={"name": "Shirt", "price": 0},
+        )
+        assert response.status_code == 422
+        count_after = len(client.get("/products").json())
+        assert count_before == count_after
+
+    def test_create_product_with_negative_price_returns_422(self):
+        count_before = len(client.get("/products").json())
+        response = client.post(
+            "/products",
+            json={"name": "Shirt", "price": -5},
+        )
+        assert response.status_code == 422
+        count_after = len(client.get("/products").json())
+        assert count_before == count_after
+
+    def test_create_product_with_negative_stock_returns_422(self):
+        count_before = len(client.get("/products").json())
+        response = client.post(
+            "/products",
+            json={"name": "Shirt", "price": 10, "stock": -1},
+        )
+        assert response.status_code == 422
+        count_after = len(client.get("/products").json())
+        assert count_before == count_after
+
+    def test_create_product_missing_name_returns_422(self):
+        count_before = len(client.get("/products").json())
+        response = client.post(
+            "/products",
+            json={"price": 10},
+        )
+        assert response.status_code == 422
+        count_after = len(client.get("/products").json())
+        assert count_before == count_after
