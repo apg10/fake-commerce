@@ -30,3 +30,5 @@ BE-003-A3a: Category partial update route added via PATCH /categories/{category_
 BE-003-A3b: Category delete route added via DELETE /categories/{category_id}. Returns 204 on success, 404 for unknown category. Hard delete only — no is_active, no soft delete. 4 tests added. python -m pytest backend/tests -q → 59 passed.
 
 BE-004-A1: Database dependency baseline. Added sqlalchemy to requirements.txt. python -m pytest backend/tests -q → 59 passed. Commit: Add database dependency baseline.
+
+BE-004-A2: Database session module. Created backend/app/db/__init__.py and backend/app/db/session.py with Engine, SessionLocal, and get_db(). python -m pytest backend/tests -q → 59 passed. Commit: Add database session module.

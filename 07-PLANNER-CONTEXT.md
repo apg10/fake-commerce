@@ -66,9 +66,12 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
   - Rejects empty name through Pydantic validation
 
 - Storage:
-  - In-memory only
-  - SQLAlchemy installed (not yet used)
-  - SQLite configured (not yet used)
+  - In-memory only for routes
+  - SQLAlchemy installed and configured
+  - SQLite configured (backend/app/db/session.py)
+  - engine, SessionLocal, get_db available
+  - No tables or models yet
+  - Not wired into main.py or routes
   - No persistence
   - No service layer
   - No repository layer

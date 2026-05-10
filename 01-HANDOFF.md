@@ -79,12 +79,27 @@ Current project status:
 
 ✅ Completed task: BE-004-A1 (database dependency baseline)
 ✅ Validation: 'python -m pip install -r requirements.txt' → sqlalchemy installed successfully. 'python -m pytest backend/tests -q' → 59 passed.
-✅ Commit: Add database dependency baseline
+✅ Commit: 1d13d0a - Add database dependency baseline
 ✅ Files changed:
   - requirements.txt
+  - 01-HANDOFF.md
+  - 02-LOG.md
+  - 07-PLANNER-CONTEXT.md
+  - 09-LOCAL-MODEL-TASK-QUEUE.md
+
+✅ Completed task: BE-004-A2 (database configuration module)
+✅ Validation: 'python -m pytest backend/tests -q' → 59 passed.
+✅ Commit: 404e6db - Add database session module
+✅ Files changed:
+  - backend/app/db/__init__.py
+  - backend/app/db/session.py
+  - 01-HANDOFF.md
+  - 02-LOG.md
+  - 07-PLANNER-CONTEXT.md
+  - 09-LOCAL-MODEL-TASK-QUEUE.md
 
 🤖 Next recommended step:
-- BE-004-A2: Database configuration module (SQLAlchemy/SQLite)
+- BE-004-A3: Database smoke tests only
 
 ⚠️ Warnings for next worker:
 - GET /products combines is_active filter + pagination in one call.
