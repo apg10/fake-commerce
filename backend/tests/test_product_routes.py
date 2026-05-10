@@ -1,13 +1,19 @@
 """Tests for product API routes."""
 
-from decimal import Decimal
-
 import pytest
+from decimal import Decimal
 from fastapi.testclient import TestClient
 
+from backend.app.routes.products import clear_store
 from backend.app.main import app
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def _reset_products():
+    clear_store()
+    yield
 
 
 def _price_matches(actual, expected):
