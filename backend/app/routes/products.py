@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, HTTPException
 
-from backend.app.schemas import ProductCreate, ProductRead
+from backend.app.schemas import ProductCreate, ProductRead, ProductUpdate
 
 router = APIRouter(tags=["products"])
 
@@ -31,6 +31,18 @@ def create_product(product: ProductCreate) -> ProductRead:
     _products[_next_id] = read
     _next_id += 1
     return read
+
+
+@router.patch("/products/{product_id}", response_model=ProductRead)
+def patch_product(product_id: int, product_update: ProductUpdate) -> ProductRead:
+    product = _products.get(product_id)
+    if product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+    update_data = product_update.model_dump(exclude_unset=True)
+    updated_product = {**product.model_dump(), **update_data}
+    final_product = ProductRead(**updated_product)
+    _products[product_id] = final_product
+    return final_product
 
 
 @router.get("/products", response_model=list[ProductRead])

@@ -139,3 +139,116 @@ class TestInvalidProductCreation:
         assert response.status_code == 422
         count_after = len(client.get("/products").json())
         assert count_before == count_after
+
+
+class TestPatchProduct:
+    """A-B. PATCH /products/{product_id} updates one or multiple fields."""
+
+    def test_patch_one_field_updates_only_that_field(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "29.99", "stock": 10, "is_active": True},
+        )
+        product_id = create_resp.json()["id"]
+        assert _price_matches(create_resp.json()["price"], 29.99)
+        assert create_resp.json()["stock"] == 10
+        assert create_resp.json()["is_active"] is True
+
+        response = client.patch(
+            f"/products/{product_id}",
+            json={"price": "39.99"},
+        )
+        assert response.status_code == 200
+        data = response.json()
+        assert _price_matches(data["price"], 39.99)
+        assert data["name"] == "Shirt"
+        assert data["stock"] == 10
+        assert data["is_active"] is True
+
+    def test_patch_multiple_fields_updates_all_provided(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "description": "Old desc", "price": "10.00", "stock": 5, "is_active": False},
+        )
+        product_id = create_resp.json()["id"]
+
+        response = client.patch(
+            f"/products/{product_id}",
+            json={
+                "name": "Pants",
+                "description": "New desc",
+                "price": "50.00",
+                "stock": 20,
+                "is_active": True,
+            },
+        )
+        assert response.status_code == 200
+        data = response.json()
+        assert data["name"] == "Pants"
+        assert data["description"] == "New desc"
+        assert _price_matches(data["price"], 50.00)
+        assert data["stock"] == 20
+        assert data["is_active"] is True
+
+
+class TestPatchProductNotFound:
+    """C. PATCH /products/{product_id} returns 404 for unknown product."""
+
+    def test_patch_unknown_product_returns_404(self):
+        response = client.patch(
+            "/products/9999",
+            json={"name": "Shirt"},
+        )
+        assert response.status_code == 404
+
+
+class TestPatchProductValidation:
+    """D-G. PATCH /products/{product_id} rejects invalid payloads with 422."""
+
+    def test_patch_price_zero_returns_422(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "10.00"},
+        )
+        product_id = create_resp.json()["id"]
+        response = client.patch(
+            f"/products/{product_id}",
+            json={"price": 0},
+        )
+        assert response.status_code == 422
+
+    def test_patch_negative_price_returns_422(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "10.00"},
+        )
+        product_id = create_resp.json()["id"]
+        response = client.patch(
+            f"/products/{product_id}",
+            json={"price": -5},
+        )
+        assert response.status_code == 422
+
+    def test_patch_negative_stock_returns_422(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "10.00"},
+        )
+        product_id = create_resp.json()["id"]
+        response = client.patch(
+            f"/products/{product_id}",
+            json={"stock": -1},
+        )
+        assert response.status_code == 422
+
+    def test_patch_empty_name_returns_422(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "10.00"},
+        )
+        product_id = create_resp.json()["id"]
+        response = client.patch(
+            f"/products/{product_id}",
+            json={"name": ""},
+        )
+        assert response.status_code == 422
