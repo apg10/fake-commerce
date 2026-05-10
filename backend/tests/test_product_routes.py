@@ -343,3 +343,83 @@ class TestGetProductsFilter:
         assert response.status_code == 200
         assert len(data) == 1
         assert data[0]["is_active"] is False
+
+    def test_get_invalid_bool_returns_422(self):
+        response = client.get("/products?is_active=maybe")
+        assert response.status_code == 422
+
+
+class TestGetProductsPagination:
+    """BE-002-A7. GET /products with limit/offset pagination."""
+
+    def test_get_products_limit_2_returns_2(self):
+        for i in range(5):
+            client.post(
+                "/products",
+                json={"name": f"Product{i}", "price": f"{i + 1}.00"},
+            )
+        response = client.get("/products?limit=2")
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data) == 2
+
+    def test_get_products_offset_1_skips_first(self):
+        for i in range(3):
+            client.post(
+                "/products",
+                json={"name": f"Product{i}", "price": f"{i + 1}.00"},
+            )
+        response = client.get("/products?offset=1")
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data) == 2
+        assert data[0]["name"] == "Product1"
+
+    def test_get_products_limit_2_offset_1_returns_expected(self):
+        for i in range(5):
+            client.post(
+                "/products",
+                json={"name": f"Product{i}", "price": f"{i + 1}.00"},
+            )
+        response = client.get("/products?limit=2&offset=1")
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data) == 2
+        assert data[0]["name"] == "Product1"
+        assert data[1]["name"] == "Product2"
+
+    def test_get_products_limit_0_returns_422(self):
+        response = client.get("/products?limit=0")
+        assert response.status_code == 422
+
+    def test_get_products_limit_101_returns_422(self):
+        response = client.get("/products?limit=101")
+        assert response.status_code == 422
+
+    def test_get_products_offset_minus_1_returns_422(self):
+        response = client.get("/products?offset=-1")
+        assert response.status_code == 422
+
+    def test_get_products_is_active_and_limit_works(self):
+        client.post(
+            "/products",
+            json={"name": "Active1", "price": "10.00", "is_active": True},
+        )
+        client.post(
+            "/products",
+            json={"name": "Active2", "price": "20.00", "is_active": True},
+        )
+        client.post(
+            "/products",
+            json={"name": "Active3", "price": "30.00", "is_active": True},
+        )
+        client.post(
+            "/products",
+            json={"name": "Inactive1", "price": "5.00", "is_active": False},
+        )
+        response = client.get("/products?is_active=true&limit=1")
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data) == 1
+        assert data[0]["is_active"] is True
+        assert data[0]["name"] == "Active1"

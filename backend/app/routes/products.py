@@ -1,6 +1,6 @@
 """Products API routes with in-memory storage."""
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 
 from backend.app.schemas import ProductCreate, ProductRead, ProductUpdate
 
@@ -54,11 +54,15 @@ def delete_product(product_id: int) -> None:
 
 
 @router.get("/products", response_model=list[ProductRead])
-def list_products(is_active: bool | None = None) -> list[ProductRead]:
+def list_products(
+    is_active: bool | None = Query(default=None),
+    limit: int = Query(default=100, gt=0, le=100),
+    offset: int = Query(default=0, ge=0),
+) -> list[ProductRead]:
     products = list(_products.values())
     if is_active is not None:
         products = [p for p in products if p.is_active == is_active]
-    return products
+    return products[offset : offset + limit]
 
 
 @router.get("/products/{product_id}", response_model=ProductRead)

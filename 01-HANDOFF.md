@@ -5,13 +5,13 @@
 Current project status:
 - Backend implementation is in progress.
 - BE-001: backend foundation and health endpoint completed.
-- BE-002-A1 through BE-002-A6: all product CRUD and filtering sub-tasks completed.
-- Real validation: 30 passed in 0.44s.
-- BE-002: Product model, schemas, routes mostly complete.
+- BE-002-A1 through BE-002-A7: all product CRUD, filtering, and pagination sub-tasks completed.
+- Real validation: 38 passed in 0.49s.
+- BE-002: Product model, schemas, routes complete.
 
-✅ Completed task: BE-002-A6 (product list filtering by is_active)
-✅ Validation: 'python -m pytest backend/tests -q' → 30 passed
-✅ Commit: Add product active filter (4be0abf)
+✅ Completed task: BE-002-A7 (product list pagination with limit/offset)
+✅ Validation: 'python -m pytest backend/tests -q' → 38 passed
+✅ Commit: Add product list pagination (pending)
 ✅ Files changed:
   - backend/app/routes/products.py
   - backend/tests/test_product_routes.py
@@ -21,15 +21,16 @@ Current project status:
   - 09-LOCAL-MODEL-TASK-QUEUE.md
 
 📦 Backend state:
-- Endpoints: GET /health, POST /products (201), GET /products (with is_active filter), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
+- Endpoints: GET /health, POST /products (201), GET /products (with is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
 - In-memory storage only. No database.
-- GET /products supports optional is_active=true/false query parameter.
+- GET /products supports optional is_active (bool), limit (1-100), offset (>=0) query parameters.
 - All existing product endpoints functional.
+- 38 tests total.
 
 🤖 Next recommended step:
-- BE-002-A7: add pagination (limit/offset query parameters) to GET /products.
+- No BE-002 sub-tasks remain. Consider BE-003 (category model) or proceeding to a later phase.
 
 ⚠️ Warnings for next worker:
-- GET /products has is_active filter but no pagination yet.
+- GET /products combines is_active filter + pagination in one call.
 - In-memory store is cleared via clear_store() fixture in tests.
-- limit must be > 0 and <= 100; offset must be >= 0.
+- No response metadata (total count, etc.) for pagination yet.

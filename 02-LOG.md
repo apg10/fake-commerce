@@ -20,3 +20,5 @@
 BE-002-A5: Added DELETE /products/{product_id} endpoint. Returns 204 on success, 404 if not found. 4 tests added. python -m pytest backend/tests -q → 27 passed. Commit: Add product delete route.
 
 BE-002-A6: Added is_active query parameter filter to GET /products. Returns all products without filter, active (true) or inactive (false) with filter. 3 tests added. python -m pytest backend/tests -q → 30 passed. Commit: Add product active filter (4be0abf).
+
+BE-002-A7: Added limit/offset pagination to GET /products. Default limit=100, offset=0. Validation: limit > 0 and <= 100, offset >= 0. Pagination works with is_active filter. 8 tests added. python -m pytest backend/tests -q → 38 passed. Commit: Add product list pagination.
