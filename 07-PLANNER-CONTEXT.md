@@ -11,3 +11,25 @@ Cloud model: Reviewer that evaluates worker output before allowing the local mod
 - Never write any backend code until BE-00x is completed and validated
 - Never write any frontend code until FE-00x is completed and validated
 - Use the safe local model task queue and never touch files outside it
+
+## Current Backend Capabilities
+- Health endpoint: GET /health → 200 {status: ok}
+- Products CRUD: POST /products (201), GET /products, GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
+- In-memory storage only, no database
+- Pydantic v2 schemas: ProductCreate, ProductUpdate, ProductRead with validation (price > 0, stock >= 0, name min_length=1)
+
+## Current Risks
+- In-memory storage: data lost on restart
+- No pagination or filtering yet (BE-002-A6, BE-002-A7 pending)
+- No soft delete (hard delete only)
+
+## Next Recommended Microtask
+- BE-002-A6: Product list filtering by is_active query parameter on GET /products
+
+## Tasks That Should NOT Be Started Yet
+- BE-002-A8 or beyond (not defined)
+- BE-003 (category model)
+- BE-100 onwards (cart, orders, payments, frontend, deploy)
+
+## Blockers
+- None

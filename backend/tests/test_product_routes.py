@@ -252,3 +252,47 @@ class TestPatchProductValidation:
             json={"name": ""},
         )
         assert response.status_code == 422
+
+
+class TestDeleteProduct:
+    """A. DELETE /products/{product_id} deletes an existing product and returns 204."""
+
+    def test_delete_existing_product_returns_204(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "29.99"},
+        )
+        product_id = create_resp.json()["id"]
+        response = client.delete(f"/products/{product_id}")
+        assert response.status_code == 204
+        assert response.content == b""
+
+    def test_delete_product_makes_get_return_404(self):
+        create_resp = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "29.99"},
+        )
+        product_id = create_resp.json()["id"]
+        client.delete(f"/products/{product_id}")
+        response = client.get(f"/products/{product_id}")
+        assert response.status_code == 404
+
+    def test_delete_unknown_product_returns_404(self):
+        response = client.delete("/products/9999")
+        assert response.status_code == 404
+
+    def test_delete_one_product_does_not_delete_another(self):
+        resp_a = client.post(
+            "/products",
+            json={"name": "Shirt", "price": "29.99"},
+        )
+        resp_b = client.post(
+            "/products",
+            json={"name": "Pants", "price": "59.99"},
+        )
+        id_a = resp_a.json()["id"]
+        id_b = resp_b.json()["id"]
+        client.delete(f"/products/{id_a}")
+        response = client.get(f"/products/{id_b}")
+        assert response.status_code == 200
+        assert response.json()["name"] == "Pants"

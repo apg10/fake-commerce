@@ -16,3 +16,5 @@
 02:16 PM: Frontend implementation, cart, order, payment, admin UI, deployment, database, and API tests remain pending.
 
 02:18 PM: Reporting files 01-HANDOFF.md, 02-LOG.md, update done. No backend files edited. Backend context review by Qwen14 complete.
+
+BE-002-A5: Added DELETE /products/{product_id} endpoint. Returns 204 on success, 404 if not found. 4 tests added. python -m pytest backend/tests -q → 27 passed. Commit: Add product delete route.

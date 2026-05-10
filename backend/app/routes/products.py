@@ -35,6 +35,7 @@ def create_product(product: ProductCreate) -> ProductRead:
 
 @router.patch("/products/{product_id}", response_model=ProductRead)
 def patch_product(product_id: int, product_update: ProductUpdate) -> ProductRead:
+
     product = _products.get(product_id)
     if product is None:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -43,6 +44,13 @@ def patch_product(product_id: int, product_update: ProductUpdate) -> ProductRead
     final_product = ProductRead(**updated_product)
     _products[product_id] = final_product
     return final_product
+
+
+@router.delete("/products/{product_id}", status_code=204)
+def delete_product(product_id: int) -> None:
+    product = _products.pop(product_id, None)
+    if product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
 
 
 @router.get("/products", response_model=list[ProductRead])
