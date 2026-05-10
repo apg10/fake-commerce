@@ -296,3 +296,50 @@ class TestDeleteProduct:
         response = client.get(f"/products/{id_b}")
         assert response.status_code == 200
         assert response.json()["name"] == "Pants"
+
+
+class TestGetProductsFilter:
+    """BE-002-A6. GET /products with is_active filter."""
+
+    def test_get_products_no_filter_returns_all(self):
+        client.post(
+            "/products",
+            json={"name": "Active Shirt", "price": "29.99", "is_active": True},
+        )
+        client.post(
+            "/products",
+            json={"name": "Inactive Shirt", "price": "19.99", "is_active": False},
+        )
+        response = client.get("/products")
+        assert response.status_code == 200
+        assert len(response.json()) == 2
+
+    def test_get_products_filter_is_active_true(self):
+        client.post(
+            "/products",
+            json={"name": "Active Shirt", "price": "29.99", "is_active": True},
+        )
+        client.post(
+            "/products",
+            json={"name": "Inactive Shirt", "price": "19.99", "is_active": False},
+        )
+        response = client.get("/products?is_active=true")
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data) == 1
+        assert data[0]["is_active"] is True
+
+    def test_get_products_filter_is_active_false(self):
+        client.post(
+            "/products",
+            json={"name": "Active Shirt", "price": "29.99", "is_active": True},
+        )
+        client.post(
+            "/products",
+            json={"name": "Inactive Shirt", "price": "19.99", "is_active": False},
+        )
+        response = client.get("/products?is_active=false")
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data) == 1
+        assert data[0]["is_active"] is False

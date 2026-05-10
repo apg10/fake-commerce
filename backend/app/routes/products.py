@@ -54,8 +54,11 @@ def delete_product(product_id: int) -> None:
 
 
 @router.get("/products", response_model=list[ProductRead])
-def list_products() -> list[ProductRead]:
-    return list(_products.values())
+def list_products(is_active: bool | None = None) -> list[ProductRead]:
+    products = list(_products.values())
+    if is_active is not None:
+        products = [p for p in products if p.is_active == is_active]
+    return products
 
 
 @router.get("/products/{product_id}", response_model=ProductRead)

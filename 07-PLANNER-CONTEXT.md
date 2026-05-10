@@ -14,17 +14,19 @@ Cloud model: Reviewer that evaluates worker output before allowing the local mod
 
 ## Current Backend Capabilities
 - Health endpoint: GET /health → 200 {status: ok}
-- Products CRUD: POST /products (201), GET /products, GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
+- Products CRUD: POST /products (201), GET /products (with is_active filter), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
 - In-memory storage only, no database
 - Pydantic v2 schemas: ProductCreate, ProductUpdate, ProductRead with validation (price > 0, stock >= 0, name min_length=1)
+- GET /products supports optional is_active query param (true/false/none)
 
 ## Current Risks
 - In-memory storage: data lost on restart
-- No pagination or filtering yet (BE-002-A6, BE-002-A7 pending)
+- No pagination yet (BE-002-A7 pending)
 - No soft delete (hard delete only)
+- is_active filter combined with future pagination needs coordination
 
 ## Next Recommended Microtask
-- BE-002-A6: Product list filtering by is_active query parameter on GET /products
+- BE-002-A7: Product list pagination with limit/offset query parameters on GET /products
 
 ## Tasks That Should NOT Be Started Yet
 - BE-002-A8 or beyond (not defined)
