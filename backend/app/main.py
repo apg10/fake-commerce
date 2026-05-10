@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from backend.app.core.config import settings
+from backend.app.routes.categories import router as categories_router
 from backend.app.routes.health import router as health_router
 from backend.app.routes.products import router as products_router
 
@@ -12,3 +13,4 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(products_router)
+app.include_router(categories_router)

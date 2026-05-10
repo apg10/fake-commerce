@@ -15,6 +15,7 @@ Cloud model: Reviewer that evaluates worker output before allowing the local mod
 ## Current Backend Capabilities
 - Health endpoint: GET /health → 200 {status: ok}
 - Products CRUD: POST /products (201), GET /products (is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
+- Category schemas: CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead (name min_length=1, optional fields, from_attributes=True)
 - In-memory storage only, no database
 - Pydantic v2 schemas: ProductCreate, ProductUpdate, ProductRead with validation (price > 0, stock >= 0, name min_length=1)
 - GET /products supports optional is_active (bool), limit (1-100), offset (>=0) query parameters
@@ -24,14 +25,16 @@ Cloud model: Reviewer that evaluates worker output before allowing the local mod
 - No response metadata (total count) for pagination
 - No soft delete (hard delete only)
 - No category, cart, order, or payment support yet
+- Category schemas exist but routes are not yet implemented
 
 ## Next Recommended Microtask
-- BE-003: Category model, CRUD, routes (if following original plan)
-- Or proceed to a different phase (cart, frontend, etc.)
+- BE-003-A2: Category basic in-memory routes (POST /categories, GET /categories, GET /categories/{category_id})
 
 ## Tasks That Should NOT Be Started Yet
 - BE-002-A8 or beyond (not defined)
-- Tasks that depend on categories not being implemented
+- BE-003-A3 (patch/delete) - must wait for BE-003-A2 to complete first
+- Tasks that depend on categories not being implemented (cart, orders with categories, etc.)
+- BE-100 cart, BE-110 orders, BE-120 payments
 
 ## Blockers
 - None
