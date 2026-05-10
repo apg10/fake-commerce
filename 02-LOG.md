@@ -24,3 +24,7 @@ BE-002-A6: Added is_active query parameter filter to GET /products. Returns all 
 BE-002-A7: Added limit/offset pagination to GET /products. Default limit=100, offset=0. Validation: limit > 0 and <= 100, offset >= 0. Pagination works with is_active filter. 8 tests added. python -m pytest backend/tests -q → 38 passed. Commit: Add product list pagination.
 
 BE-003-A1: Category Pydantic schemas created. CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead added with proper validation. 5 tests added. python -m pytest backend/tests -q → 43 passed. Commit: e29c53e - Add category Pydantic schemas.
+
+BE-003-A3a: Category partial update route added via PATCH /categories/{category_id}. Returns 200 with CategoryRead on success, 404 for unknown category, 422 for empty name. Uses model_dump(exclude_unset=True) for partial updates. 6 tests added. python -m pytest backend/tests -q → 55 passed. Commit: Add category partial update route.
+
+BE-003-A3b: Category delete route added via DELETE /categories/{category_id}. Returns 204 on success, 404 for unknown category. Hard delete only — no is_active, no soft delete. 4 tests added. python -m pytest backend/tests -q → 59 passed.

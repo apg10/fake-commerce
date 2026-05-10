@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, HTTPException
 
-from backend.app.schemas.category import CategoryCreate, CategoryRead
+from backend.app.schemas.category import CategoryCreate, CategoryRead, CategoryUpdate
 
 router = APIRouter(tags=["categories"])
 
@@ -42,3 +42,31 @@ def get_category(category_id: int) -> CategoryRead:
     if category is None:
         raise HTTPException(status_code=404, detail="Category not found")
     return category
+
+
+@router.patch("/categories/{category_id}", response_model=CategoryRead, status_code=200)
+def partial_update_category(category_id: int, category_update: CategoryUpdate) -> CategoryRead:
+    category = _categories.get(category_id)
+    if category is None:
+        raise HTTPException(status_code=404, detail="Category not found")
+    update_data = category_update.model_dump(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(category, field, value)
+    return category
+
+
+@router.delete("/categories/{category_id}", status_code=204)
+def delete_category(category_id: int) -> None:
+    category = _categories.get(category_id)
+    if category is None:
+        raise HTTPException(status_code=404, detail="Category not found")
+    del _categories[category_id]
+
+
+
+@router.delete("/categories/{category_id}", status_code=204)
+def delete_category(category_id: int) -> None:
+    category = _categories.get(category_id)
+    if category is None:
+        raise HTTPException(status_code=404, detail="Category not found")
+    del _categories[category_id]

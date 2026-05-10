@@ -6,7 +6,7 @@ Current project status:
 - Backend implementation is in progress.
 - BE-001: backend foundation and health endpoint completed.
 - BE-002-A1 through BE-002-A7: all product CRUD, filtering, and pagination sub-tasks completed.
-- Real validation: 43 passed in 0.49s.
+- Real validation: 55 passed in 0.59s.
 - BE-002: Product model, schemas, routes complete.
 
 ✅ Completed task: BE-003-A1 (category Pydantic schemas)
@@ -21,16 +21,64 @@ Current project status:
   - 07-PLANNER-CONTEXT.md
   - 09-LOCAL-MODEL-TASK-QUEUE.md
 
+✅ Completed task: BE-003-A2 (category basic in-memory routes)
+✅ Validation: 'python -m pytest backend/tests -q' → 49 passed
+✅ Endpoints added: POST /categories (201), GET /categories (200), GET /categories/{category_id} (200/404)
+✅ Tests added for category routes: 6 tests
+  - POST /categories creates category with defaults
+  - POST /categories creates with all fields
+  - POST /categories rejects empty name (422)
+  - GET /categories returns created categories
+  - GET /categories/{id} returns existing category
+  - GET /categories/{id} returns 404 for unknown
+⚠️ Category schemas exist but PATCH endpoint not yet implemented.
+
+✅ Completed task: BE-003-A3a (category partial update route)
+✅ Validation: 'python -m pytest backend/tests -q' → 55 passed
+✅ Endpoint added: PATCH /categories/{category_id} (200/404/422)
+✅ Tests added for PATCH: 6 tests
+  - Patch single field: name
+  - Patch single field: description
+  - Patch single field: is_active
+  - Patch multiple fields: name, description, is_active
+  - PATCH returns 404 for unknown category
+  - PATCH rejects empty name with 422
+✅ Files changed:
+  - backend/app/routes/categories.py
+  - backend/tests/test_category_routes.py
+  - 01-HANDOFF.md
+  - 02-LOG.md
+  - 07-PLANNER-CONTEXT.md
+  - 09-LOCAL-MODEL-TASK-QUEUE.md
+
+✅ Completed task: BE-003-A3b (category delete route)
+✅ Validation: 'python -m pytest backend/tests -q' → 59 passed
+✅ Endpoint added: DELETE /categories/{category_id} (204/404)
+✅ Tests added for DELETE: 4 tests
+  - DELETE returns 204 with empty body
+  - GET after DELETE returns 404
+  - DELETE unknown category returns 404
+  - DELETE one category does not affect another
+✅ Files changed:
+  - backend/app/routes/categories.py
+  - backend/tests/test_category_routes.py
+  - 01-HANDOFF.md
+  - 02-LOG.md
+  - 07-PLANNER-CONTEXT.md
+  - 09-LOCAL-MODEL-TASK-QUEUE.md
+
 📦 Backend state:
-- Endpoints: GET /health, POST /products (201), GET /products (with is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
+- Endpoints: GET /health, POST /products (201), GET /products (is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
+- Endpoints: POST /categories (201), GET /categories (200), GET /categories/{category_id} (200/404), PATCH /categories/{category_id} (200/404/422), DELETE /categories/{category_id} (204/404)
+- Category API now supports create, list, retrieve, partial update, and delete.
 - In-memory storage only. No database.
 - GET /products supports optional is_active (bool), limit (1-100), offset (>=0) query parameters.
 - Category schemas: CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead added.
 - All existing product endpoints functional.
-- 43 tests total.
+- 59 tests total.
 
 🤖 Next recommended step:
-- BE-003-A2: Category basic in-memory routes (POST /categories, GET /categories, GET /categories/{category_id})
+- BE-003-A3b: Category DELETE route (optional) or next unimplemented task
 
 ⚠️ Warnings for next worker:
 - GET /products combines is_active filter + pagination in one call.
