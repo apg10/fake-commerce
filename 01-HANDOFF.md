@@ -143,11 +143,23 @@ Current project status:
 
 ✅ Completed task: BE-005-A3 (category SQLAlchemy model)
 ✅ Validation: 'python -m pytest backend/tests -q' → 86 passed.
-✅ Commit: ec8b1dd - Add category SQLAlchemy model
+✅ Commit: bafd35e - Add category SQLAlchemy model
+  - backend/app/models/category.py
 ✅ Files changed:
   - backend/app/models/__init__.py
   - backend/app/models/category.py
   - backend/tests/test_category_model.py
 ✅ Category model: Category with __tablename__="categories", columns id/name/description/is_active, is_active default True.
 ✅ Category model tests: 10 tests covering table name, columns, table creation, persist/query, and defaults.
+
+✅ Completed task: BE-005-A4 (model metadata sanity tests)
+✅ Validation: 'python -m pytest backend/tests -q' → 92 passed.
+✅ Commit: -- - Add model metadata sanity tests
+✅ Files changed:
+  - backend/tests/test_model_metadata.py
+  - 01-HANDOFF.md
+  - 02-LOG.md
+  - 07-PLANNER-CONTEXT.md
+  - 09-LOCAL-MODEL-TASK-QUEUE.md
+✅ Metadata tests: 6 tests covering Product + Category table registration in Base.metadata, both table names, creating both tables together, and inserting/querying independently.
 

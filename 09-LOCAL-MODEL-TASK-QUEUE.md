@@ -22,7 +22,7 @@
 - REPO-A2: backend gitignore COMPLETE ✅
 - BE-005-A1: SQLAlchemy declarative base COMPLETE ✅
 - BE-005-A3: category SQLAlchemy model COMPLETE ✅
-- BE-005-A4: model metadata sanity tests todo ❗
+- BE-005-A4: model metadata sanity tests COMPLETE ✅
 - BE-100: cart model, crud, tests todo ❗
 - BE-110: order model, crud, tests todo ❗
 - BE-120: payment model, crud, tests todo ❗
@@ -37,8 +37,10 @@
 ✅ BE-002-A7: product list pagination with limit/offset. Validated with: 'python -m pytest backend/tests -q' → 38 passed. Commit: Add product list pagination.
 ✅ BE-003-A1: Category Pydantic schemas (CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead). Validated with: 'python -m pytest backend/tests -q' → 43 passed. Commit: e29c53e - Add category Pydantic schemas.
 ✅ BE-003-A3b: Category delete route. Validated with: 'python -m pytest backend/tests -q' → 59 passed.
-✅ BE-005-A3: Category SQLAlchemy model. Validated with: 'python -m pytest backend/tests -q' → 86 passed. Commit: ec8b1dd - Add category SQLAlchemy model.
+✅ BE-005-A3: Category SQLAlchemy model. Validated with: 'python -m pytest backend/tests -q' → 86 passed + 10 tests.
+✅ BE-005-A4: Model metadata sanity tests. Validated with: 'python -m pytest backend/tests -q' → 92 passed + 6 tests.
+✅ Both Product and Category models registered in Base.metadata and create successfully on shared in-memory SQLite.
 
 ⚠️ Do not mark any future implementation task as complete unless the task is fully finished and context is reviewed.
 
-💡 Next backend implementation task: BE-003-A2: category basic in-memory routes (POST /categories, GET /categories, GET /categories/{category_id}).
+💡 Next backend implementation task: Complete BE-005-A4 and proceed to next task assignment.
