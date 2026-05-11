@@ -178,14 +178,30 @@ Current project status:
 ✅ Repository tests: 4 tests covering create persists, list returns created, get returns existing, get returns None for unknown.
 ✅ Repository layer is a pure SQLAlchemy layer. Not connected to FastAPI routes. In-memory SQLite used for tests.
 
+✅ Completed task: BE-006-A2 (product repository update/delete)
+✅ Validation: 'python -m pytest backend/tests -q' → 104 passed.
+✅ Commit: 05f2e8a - Add product repository update and delete helpers
+✅ Files changed:
+   - backend/app/repositories/product_repository.py
+   - backend/app/repositories/__init__.py
+   - backend/tests/test_product_repository.py
+   - 01-HANDOFF.md
+   - 02-LOG.md
+   - 07-PLANNER-CONTEXT.md
+   - 09-LOCAL-MODEL-TASK-QUEUE.md
+✅ Repository functions added: update_product(db, product_id, data), delete_product(db, product_id).
+✅ Repository tests added: 8 tests covering update one field, update multiple fields, update with empty dict, update unknown returns None, delete returns True, delete unknown returns False, deleted product not returned by get_product, deleting one product does not delete another.
+✅ Product repository now has full CRUD: create_product, get_product, list_products, update_product, delete_product.
+✅ All repository functions are pure SQLAlchemy. Not connected to FastAPI routes. In-memory SQLite used for tests.
+
 📦 Backend state:
 - Endpoints: GET /health, POST /products (201), GET /products (is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
 - Endpoints: POST /categories (201), GET /categories (200), GET /categories/{category_id} (200/404), PATCH /categories/{category_id} (200/404/422), DELETE /categories/{category_id} (204/404)
 - Category API now supports create, list, retrieve, partial update, and delete.
-- In-memory storage for routes. SQLAlchemy models defined but not connected to routes.
-- Product repository layer: create_product, list_products, get_product (pure SQLAlchemy, not connected to routes).
+- In-memory storage for routes. SQLAlchemy models defined and repository layer added but not connected to routes.
+- Product repository layer (full CRUD): create_product, get_product, list_products, update_product, delete_product (pure SQLAlchemy, not connected to routes).
 - GET /products supports optional is_active (bool), limit (1-100), offset (>=0) query parameters.
 - Category schemas: CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead added.
 - All existing product endpoints functional.
-- 96 tests total.
+- 104 tests total.
 

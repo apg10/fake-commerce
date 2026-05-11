@@ -46,3 +46,5 @@ BE-005-A3: Category SQLAlchemy model created (backend/app/models/category.py) wi
 BE-005-A4: Model metadata sanity tests created (backend/tests/test_model_metadata.py) with 6 tests proving Product and Category coexist under Base.metadata — table registration, table names, creating both tables together, and inserting/querying independently. python -m pytest backend/tests -q → 92 passed. No changes to product.py or category.py.
 
 BE-006-A1: Product repository layer created with create_product, list_products, get_product functions using SQLAlchemy sessions. Tests use in-memory SQLite (not production DB). 4 repository tests added. python -m pytest backend/tests -q → 96 passed. Commit: e9f3a2c - Add product repository create and read helpers.
+
+BE-006-A2: Product repository update/delete functions added: update_product(db, product_id, data) and delete_product(db, product_id). update_product handles partial field updates, empty dict preserves values, returns None for unknown. delete_product returns True/False. 8 repository tests added. python -m pytest backend/tests -q → 104 passed. Commit: 05f2e8a - Add product repository update and delete helpers.
