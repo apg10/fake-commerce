@@ -44,3 +44,5 @@ BE-005-A2: Product SQLAlchemy model created (backend/app/models/product.py) with
 BE-005-A3: Category SQLAlchemy model created (backend/app/models/category.py) with columns id/name/description/is_active, is_active default True. Tests created (backend/tests/test_category_model.py) with 10 tests covering table name, columns, table creation, persist/query, and defaults. __init__.py updated to export Category. python -m pytest backend/tests -q → 86 passed. Commit: bafd35e - Add category SQLAlchemy model.
 
 BE-005-A4: Model metadata sanity tests created (backend/tests/test_model_metadata.py) with 6 tests proving Product and Category coexist under Base.metadata — table registration, table names, creating both tables together, and inserting/querying independently. python -m pytest backend/tests -q → 92 passed. No changes to product.py or category.py.
+
+BE-006-A1: Product repository layer created with create_product, list_products, get_product functions using SQLAlchemy sessions. Tests use in-memory SQLite (not production DB). 4 repository tests added. python -m pytest backend/tests -q → 96 passed. Commit: e9f3a2c - Add product repository create and read helpers.

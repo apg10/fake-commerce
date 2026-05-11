@@ -156,10 +156,36 @@ Current project status:
 ✅ Validation: 'python -m pytest backend/tests -q' → 92 passed.
 ✅ Commit: -- - Add model metadata sanity tests
 ✅ Files changed:
-  - backend/tests/test_model_metadata.py
-  - 01-HANDOFF.md
-  - 02-LOG.md
-  - 07-PLANNER-CONTEXT.md
-  - 09-LOCAL-MODEL-TASK-QUEUE.md
+   - backend/tests/test_model_metadata.py
+   - 01-HANDOFF.md
+   - 02-LOG.md
+   - 07-PLANNER-CONTEXT.md
+   - 09-LOCAL-MODEL-TASK-QUEUE.md
 ✅ Metadata tests: 6 tests covering Product + Category table registration in Base.metadata, both table names, creating both tables together, and inserting/querying independently.
+
+✅ Completed task: BE-006-A1 (product repository create/list/get)
+✅ Validation: 'python -m pytest backend/tests -q' → 96 passed.
+✅ Commit: e9f3a2c - Add product repository create and read helpers
+✅ Files changed:
+   - backend/app/repositories/__init__.py
+   - backend/app/repositories/product_repository.py
+   - backend/tests/test_product_repository.py
+   - 01-HANDOFF.md
+   - 02-LOG.md
+   - 07-PLANNER-CONTEXT.md
+   - 09-LOCAL-MODEL-TASK-QUEUE.md
+✅ Repository functions: create_product(db, data), list_products(db), get_product(db, product_id).
+✅ Repository tests: 4 tests covering create persists, list returns created, get returns existing, get returns None for unknown.
+✅ Repository layer is a pure SQLAlchemy layer. Not connected to FastAPI routes. In-memory SQLite used for tests.
+
+📦 Backend state:
+- Endpoints: GET /health, POST /products (201), GET /products (is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)
+- Endpoints: POST /categories (201), GET /categories (200), GET /categories/{category_id} (200/404), PATCH /categories/{category_id} (200/404/422), DELETE /categories/{category_id} (204/404)
+- Category API now supports create, list, retrieve, partial update, and delete.
+- In-memory storage for routes. SQLAlchemy models defined but not connected to routes.
+- Product repository layer: create_product, list_products, get_product (pure SQLAlchemy, not connected to routes).
+- GET /products supports optional is_active (bool), limit (1-100), offset (>=0) query parameters.
+- Category schemas: CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead added.
+- All existing product endpoints functional.
+- 96 tests total.
 
