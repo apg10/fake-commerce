@@ -24,6 +24,7 @@ Thumbs.db
 .idea/
 
 # Local databases / generated files
+fake_commerce.db
 *.sqlite
 *.sqlite3
 *.db
