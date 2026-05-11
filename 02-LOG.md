@@ -36,3 +36,5 @@ BE-004-A2: Database session module. Created backend/app/db/__init__.py and backe
 BE-004-A3: Database smoke tests. Created backend/tests/test_db_session.py with 3 tests (engine exposed, SessionLocal exposed, get_db yields usable session, SQL executes). python -m pytest backend/tests -q → 62 passed. Commit: Add database session smoke tests.
 
 REPO-A2: Backend .gitignore updated with fake_commerce.db exclusion. python -m pytest backend/tests -q → 62 passed. Commit: 3dc5e38 - Add backend gitignore.
+
+BE-005-A1: SQLAlchemy declarative base created via backend/app/db/base.py using DeclarativeBase. backend/app/db/__init__.py updated to export Base. python -m pytest backend/tests -q → 62 passed. Commit: 781eb00 - Add SQLAlchemy declarative base.

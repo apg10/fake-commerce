@@ -117,10 +117,18 @@ Current project status:
 ✅ Files changed:
   - .gitignore
 
+✅ Completed task: BE-005-A1 (SQLAlchemy declarative base)
+✅ Validation: 'python -m pytest backend/tests -q' → 62 passed.
+✅ Commit: 781eb00 - Add SQLAlchemy declarative base
+✅ Files changed:
+  - backend/app/db/base.py
+  - backend/app/db/__init__.py
+
 ⚠️ Warnings for next worker:
 - GET /products combines is_active filter + pagination in one call.
 - In-memory store is cleared via clear_store() fixture in tests.
 - No response metadata (total count, etc.) for pagination yet.
 - No tables or models yet.
+- Category schemas exist but routes do not yet.
 
 

@@ -77,6 +77,7 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
   - No service layer
   - No repository layer
   - .gitignore updated (REPO-A2)
+  - Declarative base available: backend.app.db.base.Base
 
 ## Current Validation Status
 
