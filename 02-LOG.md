@@ -50,3 +50,5 @@ BE-006-A1: Product repository layer created with create_product, list_products, 
 BE-006-A2: Product repository update/delete functions added: update_product(db, product_id, data) and delete_product(db, product_id). update_product handles partial field updates, empty dict preserves values, returns None for unknown. delete_product returns True/False. 8 repository tests added. python -m pytest backend/tests -q → 104 passed. Commit: 05f2e8a - Add product repository update and delete helpers.
 
 BE-006-A3: Category repository layer created with create_category, list_categories, get_category functions using SQLAlchemy sessions. Tests use in-memory SQLite (not production DB). 4 repository tests added. python -m pytest backend/tests -q → 108 passed.
+
+BE-006-A4: Category repository update/delete functions added: update_category(db, category_id, data) and delete_category(db, category_id). update_category handles partial field updates, empty dict preserves values, returns None for unknown. delete_category returns True/False. 8 repository tests added. python -m pytest backend/tests -q → 116 passed.

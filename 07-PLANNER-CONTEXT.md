@@ -95,6 +95,8 @@ Latest known validation: **108 passed in 0.90s** (python -m pytest backend/tests
 - BE-006-A2: Product repository update/delete layer added (pure SQLAlchemy, not connected to routes). python -m pytest backend/tests -q → 104 passed. ✅
 - Product repository now has full CRUD: create_product, get_product, list_products, update_product, delete_product.
 - Category repository layer added with create_category, list_categories, get_category (pure SQLAlchemy, not connected to routes). python -m pytest backend/tests -q → 108 passed. ✅
+- BE-006-A4: Category repository update/delete layer added (pure SQLAlchemy, not connected to routes). python -m pytest backend/tests -q → 116 passed. ✅
+- Category repository now has full CRUD: create_category, get_category, list_categories, update_category, delete_category.
 
 ### Next Recommended Task
 
