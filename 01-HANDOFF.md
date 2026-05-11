@@ -131,4 +131,14 @@ Current project status:
 - No tables or models yet.
 - Category schemas exist but routes do not yet.
 
+✅ Completed task: BE-005-A2 (product SQLAlchemy model)
+✅ Validation: 'python -m pytest backend/tests -q' → 76 passed.
+✅ Commit: aeeb871 - Add product SQLAlchemy model
+✅ Files changed:
+  - backend/app/models/__init__.py
+  - backend/app/models/product.py
+  - backend/tests/test_product_model.py
+✅ Product model: Product with __tablename__="products", columns id/name/description/price/stock/is_active.
+✅ Product model tests: 14 tests covering table name, columns, table creation, persist/query, and defaults.
+
 

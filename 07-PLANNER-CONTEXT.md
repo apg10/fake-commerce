@@ -78,6 +78,7 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
   - No repository layer
   - .gitignore updated (REPO-A2)
   - Declarative base available: backend.app.db.base.Base
+  - Product SQLAlchemy model available: backend.app.models.product.Product
 
 ## Current Validation Status
 

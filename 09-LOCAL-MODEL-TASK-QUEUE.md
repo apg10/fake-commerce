@@ -21,6 +21,7 @@
 - BE-004-A3: database smoke tests COMPLETE ✅
 - REPO-A2: backend gitignore COMPLETE ✅
 - BE-005-A1: SQLAlchemy declarative base COMPLETE ✅
+- BE-005-A2: product SQLAlchemy model COMPLETE ✅
 - BE-100: cart model, crud, tests todo ❗
 - BE-110: order model, crud, tests todo ❗
 - BE-120: payment model, crud, tests todo ❗

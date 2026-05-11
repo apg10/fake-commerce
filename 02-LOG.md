@@ -38,3 +38,5 @@ BE-004-A3: Database smoke tests. Created backend/tests/test_db_session.py with 3
 REPO-A2: Backend .gitignore updated with fake_commerce.db exclusion. python -m pytest backend/tests -q → 62 passed. Commit: 3dc5e38 - Add backend gitignore.
 
 BE-005-A1: SQLAlchemy declarative base created via backend/app/db/base.py using DeclarativeBase. backend/app/db/__init__.py updated to export Base. python -m pytest backend/tests -q → 62 passed. Commit: 781eb00 - Add SQLAlchemy declarative base.
+
+BE-005-A2: Product SQLAlchemy model created (backend/app/models/product.py) with columns id/name/description/price/stock/is_active, default stock=0 and is_active=True. Models package created (backend/app/models/__init__.py). Tests created (backend/tests/test_product_model.py) with 14 tests covering table name, columns, table creation, persist/query, and defaults. python -m pytest backend/tests -q → 76 passed. Commit: aeeb871 - Add product SQLAlchemy model.
