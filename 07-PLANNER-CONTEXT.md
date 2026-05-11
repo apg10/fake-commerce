@@ -72,6 +72,7 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
   - engine, SessionLocal, get_db available
   - Smoke tests pass (backend/tests/test_db_session.py)
   - No tables or models yet
+  - No tables or models in production
   - Not wired into main.py or routes
   - No persistence
   - No service layer
@@ -79,10 +80,17 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
   - .gitignore updated (REPO-A2)
   - Declarative base available: backend.app.db.base.Base
   - Product SQLAlchemy model available: backend.app.models.product.Product
+  - Category SQLAlchemy model available: backend.app.models.category.Category
+  - No tables created in production.
 
 ## Current Validation Status
 
-Latest known validation should be confirmed before push with:
+Latest known validation: **86 passed in 0.82s** (python -m pytest backend/tests -q)
 
-```bash
-python -m pytest backend/tests -q
+### Completed Tasks
+
+- BE-005-A3: Category SQLAlchemy model added. python -m pytest backend/tests -q → 86 passed. ✅
+
+### Next Recommended Task
+
+- BE-005-A4: Model metadata sanity tests

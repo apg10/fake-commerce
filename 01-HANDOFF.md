@@ -141,4 +141,13 @@ Current project status:
 ✅ Product model: Product with __tablename__="products", columns id/name/description/price/stock/is_active.
 ✅ Product model tests: 14 tests covering table name, columns, table creation, persist/query, and defaults.
 
+✅ Completed task: BE-005-A3 (category SQLAlchemy model)
+✅ Validation: 'python -m pytest backend/tests -q' → 86 passed.
+✅ Commit: ec8b1dd - Add category SQLAlchemy model
+✅ Files changed:
+  - backend/app/models/__init__.py
+  - backend/app/models/category.py
+  - backend/tests/test_category_model.py
+✅ Category model: Category with __tablename__="categories", columns id/name/description/is_active, is_active default True.
+✅ Category model tests: 10 tests covering table name, columns, table creation, persist/query, and defaults.
 
