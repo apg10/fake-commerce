@@ -75,124 +75,22 @@ Current project status:
 - GET /products supports optional is_active (bool), limit (1-100), offset (>=0) query parameters.
 - Category schemas: CategoryBase, CategoryCreate, CategoryUpdate, CategoryRead added.
 - All existing product endpoints functional.
-- 59 tests total.
+- 108 tests total.
 
-✅ Completed task: BE-004-A1 (database dependency baseline)
-✅ Validation: 'python -m pip install -r requirements.txt' → sqlalchemy installed successfully. 'python -m pytest backend/tests -q' → 59 passed.
-✅ Commit: 1d13d0a - Add database dependency baseline
-✅ Files changed:
-  - requirements.txt
-  - 01-HANDOFF.md
-  - 02-LOG.md
-  - 07-PLANNER-CONTEXT.md
-  - 09-LOCAL-MODEL-TASK-QUEUE.md
-
-✅ Completed task: BE-004-A2 (database configuration module)
-✅ Validation: 'python -m pytest backend/tests -q' → 59 passed.
-✅ Commit: d85527d - Add database session module (amended with context)
-✅ Files changed:
-  - backend/app/db/__init__.py
-  - backend/app/db/session.py
-  - 01-HANDOFF.md
-  - 02-LOG.md
-  - 07-PLANNER-CONTEXT.md
-  - 09-LOCAL-MODEL-TASK-QUEUE.md
-
-🤖 Next recommended step:
-- BE-004-A3: Database smoke tests only
-
-✅ Completed task: BE-004-A3 (database smoke tests)
-✅ Validation: 'python -m pytest backend/tests -q' → 62 passed.
-✅ Commit: Add database session smoke tests
-✅ Files changed:
-  - backend/tests/test_db_session.py
-  - 01-HANDOFF.md
-  - 02-LOG.md
-  - 07-PLANNER-CONTEXT.md
-  - 09-LOCAL-MODEL-TASK-QUEUE.md
-
-✅ Completed task: REPO-A2 (backend gitignore)
-✅ Validation: 'python -m pytest backend/tests -q' → 62 passed.
-✅ Commit: 3dc5e38 - Add backend gitignore
-✅ Files changed:
-  - .gitignore
-
-✅ Completed task: BE-005-A1 (SQLAlchemy declarative base)
-✅ Validation: 'python -m pytest backend/tests -q' → 62 passed.
-✅ Commit: 781eb00 - Add SQLAlchemy declarative base
-✅ Files changed:
-  - backend/app/db/base.py
-  - backend/app/db/__init__.py
-
-⚠️ Warnings for next worker:
-- GET /products combines is_active filter + pagination in one call.
-- In-memory store is cleared via clear_store() fixture in tests.
-- No response metadata (total count, etc.) for pagination yet.
-- No tables or models yet.
-- Category schemas exist but routes do not yet.
-
-✅ Completed task: BE-005-A2 (product SQLAlchemy model)
-✅ Validation: 'python -m pytest backend/tests -q' → 76 passed.
-✅ Commit: aeeb871 - Add product SQLAlchemy model
-✅ Files changed:
-  - backend/app/models/__init__.py
-  - backend/app/models/product.py
-  - backend/tests/test_product_model.py
-✅ Product model: Product with __tablename__="products", columns id/name/description/price/stock/is_active.
-✅ Product model tests: 14 tests covering table name, columns, table creation, persist/query, and defaults.
-
-✅ Completed task: BE-005-A3 (category SQLAlchemy model)
-✅ Validation: 'python -m pytest backend/tests -q' → 86 passed.
-✅ Commit: bafd35e - Add category SQLAlchemy model
-  - backend/app/models/category.py
-✅ Files changed:
-  - backend/app/models/__init__.py
-  - backend/app/models/category.py
-  - backend/tests/test_category_model.py
-✅ Category model: Category with __tablename__="categories", columns id/name/description/is_active, is_active default True.
-✅ Category model tests: 10 tests covering table name, columns, table creation, persist/query, and defaults.
-
-✅ Completed task: BE-005-A4 (model metadata sanity tests)
-✅ Validation: 'python -m pytest backend/tests -q' → 92 passed.
-✅ Commit: -- - Add model metadata sanity tests
-✅ Files changed:
-   - backend/tests/test_model_metadata.py
-   - 01-HANDOFF.md
-   - 02-LOG.md
-   - 07-PLANNER-CONTEXT.md
-   - 09-LOCAL-MODEL-TASK-QUEUE.md
-✅ Metadata tests: 6 tests covering Product + Category table registration in Base.metadata, both table names, creating both tables together, and inserting/querying independently.
-
-✅ Completed task: BE-006-A1 (product repository create/list/get)
-✅ Validation: 'python -m pytest backend/tests -q' → 96 passed.
-✅ Commit: e9f3a2c - Add product repository create and read helpers
+✅ Completed task: BE-006-A3 (category repository create/list/get)
+✅ Validation: 'python -m pytest backend/tests -q' → 108 passed.
+✅ Commit:  - Add category repository create and read helpers
 ✅ Files changed:
    - backend/app/repositories/__init__.py
-   - backend/app/repositories/product_repository.py
-   - backend/tests/test_product_repository.py
+   - backend/app/repositories/category_repository.py
+   - backend/tests/test_category_repository.py
    - 01-HANDOFF.md
    - 02-LOG.md
    - 07-PLANNER-CONTEXT.md
    - 09-LOCAL-MODEL-TASK-QUEUE.md
-✅ Repository functions: create_product(db, data), list_products(db), get_product(db, product_id).
+✅ Repository functions: create_category(db, data), list_categories(db), get_category(db, category_id).
 ✅ Repository tests: 4 tests covering create persists, list returns created, get returns existing, get returns None for unknown.
 ✅ Repository layer is a pure SQLAlchemy layer. Not connected to FastAPI routes. In-memory SQLite used for tests.
-
-✅ Completed task: BE-006-A2 (product repository update/delete)
-✅ Validation: 'python -m pytest backend/tests -q' → 104 passed.
-✅ Commit: 05f2e8a - Add product repository update and delete helpers
-✅ Files changed:
-   - backend/app/repositories/product_repository.py
-   - backend/app/repositories/__init__.py
-   - backend/tests/test_product_repository.py
-   - 01-HANDOFF.md
-   - 02-LOG.md
-   - 07-PLANNER-CONTEXT.md
-   - 09-LOCAL-MODEL-TASK-QUEUE.md
-✅ Repository functions added: update_product(db, product_id, data), delete_product(db, product_id).
-✅ Repository tests added: 8 tests covering update one field, update multiple fields, update with empty dict, update unknown returns None, delete returns True, delete unknown returns False, deleted product not returned by get_product, deleting one product does not delete another.
-✅ Product repository now has full CRUD: create_product, get_product, list_products, update_product, delete_product.
-✅ All repository functions are pure SQLAlchemy. Not connected to FastAPI routes. In-memory SQLite used for tests.
 
 📦 Backend state:
 - Endpoints: GET /health, POST /products (201), GET /products (is_active filter, limit/offset pagination), GET /products/{product_id} (200/404), PATCH /products/{product_id} (200/404/422), DELETE /products/{product_id} (204/404)

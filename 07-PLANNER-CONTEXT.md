@@ -85,7 +85,7 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
 
 ## Current Validation Status
 
-Latest known validation: **104 passed in 1.07s** (python -m pytest backend/tests -q)
+Latest known validation: **108 passed in 0.90s** (python -m pytest backend/tests -q)
 
 ### Completed Tasks
 
@@ -94,6 +94,7 @@ Latest known validation: **104 passed in 1.07s** (python -m pytest backend/tests
 - BE-006-A1: Product repository create/list/get layer added (pure SQLAlchemy, not connected to routes). python -m pytest backend/tests -q → 96 passed. ✅
 - BE-006-A2: Product repository update/delete layer added (pure SQLAlchemy, not connected to routes). python -m pytest backend/tests -q → 104 passed. ✅
 - Product repository now has full CRUD: create_product, get_product, list_products, update_product, delete_product.
+- Category repository layer added with create_category, list_categories, get_category (pure SQLAlchemy, not connected to routes). python -m pytest backend/tests -q → 108 passed. ✅
 
 ### Next Recommended Task
 

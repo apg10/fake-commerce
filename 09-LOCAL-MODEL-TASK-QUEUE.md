@@ -25,6 +25,7 @@
 - BE-005-A4: model metadata sanity tests COMPLETE ✅
 - BE-006-A1: product repository create/list/get (pure SQLAlchemy layer, not connected to routes) COMPLETE ✅
 - BE-006-A2: product repository update/delete (pure SQLAlchemy layer, not connected to routes) COMPLETE ✅
+- BE-006-A3: category repository create/list/get (pure SQLAlchemy layer, not connected to routes) COMPLETE ✅
 - BE-100: cart model, crud, tests todo ❗
 - BE-100: cart model, crud, tests todo ❗
 - BE-110: order model, crud, tests todo ❗
@@ -47,7 +48,9 @@
 ✅ Repository layer is pure SQLAlchemy, uses in-memory SQLite for tests, not connected to FastAPI routes.
 ✅ BE-006-A2: Product repository (update_product, delete_product). Validated with: 'python -m pytest backend/tests -q' → 104 passed + 8 tests.
 ✅ Product repository now has full CRUD: create, read, list, update, delete. All pure SQLAlchemy, not connected to routes.
+✅ Category repository (create_category, list_categories, get_category). Validated with: 'python -m pytest backend/tests -q' → 108 passed + 4 tests.
+✅ Category repository is pure SQLAlchemy, uses in-memory SQLite for tests, not connected to FastAPI routes.
 
 ⚠️ Do not mark any future implementation task as complete unless the task is fully finished and context is reviewed.
 
-💡 Next backend implementation task: Assign next task from task queue.
+💡 Next backend implementation task: BE-006-A4 — Category DB repository update/delete only.
