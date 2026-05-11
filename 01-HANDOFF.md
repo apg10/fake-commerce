@@ -111,8 +111,16 @@ Current project status:
   - 07-PLANNER-CONTEXT.md
   - 09-LOCAL-MODEL-TASK-QUEUE.md
 
+✅ Completed task: REPO-A2 (backend gitignore)
+✅ Validation: 'python -m pytest backend/tests -q' → 62 passed.
+✅ Commit: 3dc5e38 - Add backend gitignore
+✅ Files changed:
+  - .gitignore
+
 ⚠️ Warnings for next worker:
 - GET /products combines is_active filter + pagination in one call.
 - In-memory store is cleared via clear_store() fixture in tests.
 - No response metadata (total count, etc.) for pagination yet.
-- Category schemas exist but routes do not yet.
+- No tables or models yet.
+
+

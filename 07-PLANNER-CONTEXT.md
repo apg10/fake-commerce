@@ -76,6 +76,7 @@ Cloud model role: Reviewer, architect, prompt designer, and quality-control laye
   - No persistence
   - No service layer
   - No repository layer
+  - .gitignore updated (REPO-A2)
 
 ## Current Validation Status
 
